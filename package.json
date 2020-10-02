@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "npm": "v6.14.6",
-    "node": "v12.8.4"
+    "node": "12.x"
   },
   "dependencies": {
     "@emotion/core": "^10.0.35",
