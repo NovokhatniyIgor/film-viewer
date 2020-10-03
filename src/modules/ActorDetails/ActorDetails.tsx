@@ -14,8 +14,6 @@ import {
     CardStyled,
 } from './styles';
 
-
-
 const ActorDetailsRender: React.FC<IActorDetailsRender> = ({ actorDetails }) => {
     if (!actorDetails) {
         return null;

@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { getTrendMovies, searchMovies } from 'api/movies';
 import { MovieItem } from './MovieItem';
 import { MovieListStyled, ButtonStyled, MovieListHeadingStyled } from '../styles';
 import { motion } from 'framer-motion';
 import { IMovieListDetails } from 'src/types';
 import { formatDescription } from 'services/formatDescription';
 
-const container = {
+export const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
         opacity: 1,
@@ -25,11 +24,6 @@ const item = {
         y: 0,
         opacity: 1,
     },
-};
-
-const INITIAL_STATE = {
-    page: 1,
-    results: [],
 };
 
 interface IRenderMovieList {
@@ -57,35 +51,14 @@ const RenderMovieList: React.FC<IRenderMovieList> = ({ movies }): any => {
 
 interface IMovieList {
     searchParam: string;
+    handleLoadMoreBtnClick: () => void;
+    movies: IMovieListDetails;
 }
 
-const MovieList: React.FC<IMovieList> = ({ searchParam }) => {
-    const [movies, setMovies] = React.useState<IMovieListDetails>(INITIAL_STATE);
-
-    const getMovies = React.useCallback(
-        (page) => {
-            return searchParam ? searchMovies(page, searchParam) : getTrendMovies(page);
-        },
-        [searchParam]
-    );
-
-    React.useEffect(() => {
-        setMovies(INITIAL_STATE);
-
-        getMovies(1).then((response) => {
-            setMovies(response);
-        });
-    }, [searchParam, getMovies]);
-
-    const handleLoadMoreBtnClick = () => {
-        getMovies(movies.page + 1).then((response) => {
-            setMovies({ ...response, results: [...movies.results, ...response.results] });
-        });
-    };
-
+const MovieList: React.FC<IMovieList> = ({ searchParam, handleLoadMoreBtnClick, movies }) => {
     return (
         <>
-            <MovieListHeadingStyled>{searchParam ? `"${searchParam}" ` : 'Trend '}movies</MovieListHeadingStyled>
+            <MovieListHeadingStyled>{searchParam ? `"${searchParam}" ` : 'Trending '}movies</MovieListHeadingStyled>
             <MovieListStyled variants={container} initial="hidden" animate="visible">
                 <RenderMovieList movies={movies} />
             </MovieListStyled>
