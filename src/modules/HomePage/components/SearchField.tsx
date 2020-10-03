@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Input } from 'antd';
-import { SearchContainerStyled } from '../styles';
+import { SearchContainerStyled, StyledSearch } from '../styles';
 
 interface ISearchField {
     setSearchParam: (value: string) => void;
@@ -13,7 +12,7 @@ export const SearchField: React.FC<ISearchField> = ({ setSearchParam }) => {
 
     return (
         <SearchContainerStyled>
-            <Input.Search onSearch={handleSearch} placeholder="Search movie" />
+            <StyledSearch onSearch={handleSearch} placeholder="Search movie" size="large" />
         </SearchContainerStyled>
     );
 };

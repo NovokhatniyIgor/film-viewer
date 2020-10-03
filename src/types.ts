@@ -6,8 +6,12 @@ export interface IGenre {
 export interface IMovieInformation {
     id: number;
     backdrop_path: string;
+    poster_path: string;
     original_title: string;
+    release_date: string;
     overview: string;
+    genre_ids: number[];
+    tagline: string;
     genres: IGenre[];
 }
 

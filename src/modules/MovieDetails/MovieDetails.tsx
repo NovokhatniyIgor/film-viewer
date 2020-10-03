@@ -1,13 +1,19 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Trailer } from './components/Trailer';
-import { ActorList } from './components/ActorList';
+import { Trailer, ActorList } from 'modules/MovieDetails';
 import { getMovieById } from 'api/movies';
 import { PageTransition } from 'src/_common/PageTransition';
 import { IMovieInformation } from 'src/types';
-import {IMovieDetails} from "modules/MovieDetails/types";
-import {checkImage} from "services/checkImage";
-import { MovieDetailsContainerStyled, ImageContainerStyled, GenresContainerStyled, GenreStyled } from './styles';
+import { IMovieDetails } from 'modules/MovieDetails/types';
+import { checkImage } from 'services/checkImage';
+import {
+    MovieDetailsContainerStyled,
+    ImageContainerStyled,
+    GenresContainerStyled,
+    GenreStyled,
+    ImageTextureStyled,
+    StyledMovieDetails, StyledMovieDetailsTitle,
+} from './styles';
 
 const MovieDetails: React.FC<IMovieDetails> = ({ match }) => {
     const [movieDetails, setMovieDetails] = React.useState<IMovieInformation | null>();
@@ -20,10 +26,19 @@ const MovieDetails: React.FC<IMovieDetails> = ({ match }) => {
 
     return (
         <PageTransition>
-            <MovieDetailsContainerStyled>
-                <ImageContainerStyled imageUrl={checkImage(780, 400, movieDetails?.backdrop_path)} />
+            <ImageContainerStyled imageUrl={checkImage(780, 400, movieDetails?.backdrop_path)}>
+                <ImageTextureStyled />
+                <MovieDetailsContainerStyled>
+                    <StyledMovieDetails>
+                        <StyledMovieDetailsTitle>{movieDetails?.original_title}</StyledMovieDetailsTitle>
+                        <p>{movieDetails?.tagline}</p>
+                        <Trailer id={match.params.id!} />
+                    </StyledMovieDetails>
+                </MovieDetailsContainerStyled>
+            </ImageContainerStyled>
 
-                <h1>Storyline</h1>
+            <MovieDetailsContainerStyled>
+                <h2>Storyline</h2>
                 <p>{movieDetails?.overview}</p>
 
                 <GenresContainerStyled>
@@ -34,8 +49,6 @@ const MovieDetails: React.FC<IMovieDetails> = ({ match }) => {
                 </GenresContainerStyled>
 
                 <ActorList id={match.params.id!} />
-                <Trailer id={match.params.id!} />
-
                 <div>
                     <Link to="/">Home</Link>
                 </div>

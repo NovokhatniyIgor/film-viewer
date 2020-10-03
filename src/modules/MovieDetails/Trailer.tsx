@@ -18,7 +18,6 @@ const Trailer: React.FC<ITrailer> = ({ id }) => {
 
     return (
         <>
-            <h2>Trailer</h2>
             <iframe title={trailerUrl} src={trailerUrl} allowFullScreen />
         </>
     );
