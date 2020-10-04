@@ -21,7 +21,7 @@ const Slider: React.FC<ISlider> = ({ movies }) => {
         return <StyledSliderNoResult />
     }
     return (
-        <StyledCarousel dotPosition="right" effect="fade">
+        <StyledCarousel autoplay dotPosition="right" effect="fade">
             {getMoviesForSlider(movies.results).map((movie) => {
                 const { id, poster_path, original_title, overview, backdrop_path, genre_ids, release_date } = movie;
                 return (
